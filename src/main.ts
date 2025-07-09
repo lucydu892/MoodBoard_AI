@@ -4,5 +4,5 @@ import { AppComponent } from './app/app.component';
 import { appConfig} from './app/app.config';
 
 bootstrapApplication(AppComponent, {
-  providers: [provideClientHydration(), ...appConfig.providers]
-}).catch(err => console.error(err));
+    providers: [provideClientHydration(), ...appConfig.providers]
+  }).catch(err => console.error(err));

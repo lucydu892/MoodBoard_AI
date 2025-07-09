@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
     axios
       .get('https://api.unsplash.com/photos/random?client_id=EfSZG-Q6XKRhmL2ZaQoWvgSumgPkp-H8LfizA1QuM6A')
       .then(response => {
-        const imageUrl = response.data.results[0].urls.regular;
+        const imageUrl = response.data.urls.regular;
         this.imageRef.nativeElement.src = imageUrl;
       })
       .catch(error => {
