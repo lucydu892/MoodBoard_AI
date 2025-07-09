@@ -1,4 +1,4 @@
-import {OnInit, ViewChild, ElementRef, Component} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import axios from 'axios';
 
 @Component({
@@ -10,6 +10,7 @@ import axios from 'axios';
 export class DashboardComponent implements OnInit {
   title = 'Dashboard';
   @ViewChild('imageRef') imageRef!: ElementRef<HTMLImageElement>;
+  private quoteRef: any;
 
   ngOnInit(): void {
     console.log('DashboardComponent component initialized');
@@ -20,8 +21,7 @@ export class DashboardComponent implements OnInit {
     axios
       .get('https://api.unsplash.com/photos/random?client_id=EfSZG-Q6XKRhmL2ZaQoWvgSumgPkp-H8LfizA1QuM6A')
       .then(response => {
-        const imageUrl = response.data.urls.regular;
-        this.imageRef.nativeElement.src = imageUrl;
+        this.imageRef.nativeElement.src = response.data.urls.regular;
       })
       .catch(error => {
         console.error('Fehler beim Laden des Bildes:', error.message);
@@ -46,5 +46,19 @@ export class DashboardComponent implements OnInit {
         mood = 'unknown';
     }
     return  mood ;
+  }
+  getQuote(): void {
+    alert("Feature not implemented yet");
+    // alert("Quote");
+    // axios
+    //   .get('https://api.quotable.io/random')
+    //   .then(response => {
+    //     const quote = response.data.content;
+    //     const author = response.data.author;
+    //     this.quoteRef.nativeElement.textContent = `"${quote}" - ${author}`;
+    //   })
+    //   .catch(error => {
+    //     console.error('Fehler beim Laden des Zitats:', error.message);
+    //   });
   }
 }
