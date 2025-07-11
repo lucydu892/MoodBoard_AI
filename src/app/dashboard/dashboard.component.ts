@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
   }
 
   async getQuote(): Promise<void> {
-    const apiUrl = 'https://api.api-ninjas.com/v1/quotes';
+    const apiUrl = 'https://api.quotable.io';
 
     try {
       const response = await axios.get(apiUrl, {
