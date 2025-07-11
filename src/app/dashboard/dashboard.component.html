@@ -37,10 +37,11 @@
       </p>
     </div>
     <h2>Music 🎵</h2>
-    <button (click)="getPlaylist()">🎧 Music load</button>
-    <a [href]="playlistUrl" target="_blank">{{ playlistName || 'Playlist öffnen' }}</a>
+    <button (click)="getPlaylist()">🎧Music load</button>
+    <a [href]="playlistUrl || '#'" target="_blank">
+      {{ playlistName || '🎧 Playlist öffnen' }}
+    </a>
+
     <button onclick="alert('Feature coming soon!')">Create a Mood Board</button>
   </div>
 </main>
-
-

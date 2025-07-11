@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   title = 'Dashboard';
   @ViewChild('imageRef') imageRef!: ElementRef<HTMLImageElement>;
   @ViewChild('colorPalette') colorPalette!: ElementRef<HTMLDivElement>;
-  private accessToken = 'BQCsg6zt6bOX_PDbfrJqsNfsK6xHjAtvqOp-lXEKvm0MwhcM8l4MaCJI-L7ptM2Y09cYyLefPyEplzkNyszWObHIBNwNzGJsfY9EySkrbGAgV38pQrw7kN31VtT53KPLHXOeWeU4xKM';
+  accessToken: string = 'BQCsg6zt6bOX_PDbfrJqsNfsK6xHjAtvqOp-lXEKvm0MwhcM8l4MaCJI-L7ptM2Y09cYyLefPyEplzkNyszWObHIBNwNzGJsfY9EySkrbGAgV38pQrw7kN31VtT53KPLHXOeWeU4xKM';
   quote: string = '';
   author: string = '';
   playlistUrl: string = '';
@@ -24,11 +24,12 @@ export class DashboardComponent implements OnInit {
       this.quote = quote.quote;
       this.author = quote.author;
     }
+    axios.get('http://localhost:3000/spotify-token')
+      .then(response => {
+        this.accessToken = response.data.access_token;
+        console.log('✅ Token empfangen:', this.accessToken);
+      });
 
-    axios.get('/spotify-token').then(response => {
-      this.accessToken = response.data.access_token;
-      console.log('Access Token:', this.accessToken);
-    });
   }
 
   getImage(): void {
@@ -100,31 +101,26 @@ export class DashboardComponent implements OnInit {
       });
   }
   getPlaylist(): void {
-    const artistId = '53XhwfbYqKCa1cC15pYq2q'; // z.B. Imagine Dragons
+    const artistId = '53XhwfbYqKCa1cC15pYq2q'; // Imagine Dragons
 
-    if (!this.accessToken) {
-      console.error('❌ Kein Access Token vorhanden!');
-      return;
-    }
-
-    axios
-      .get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=CH`, {
-        headers: {
-          Authorization: `Bearer ${this.accessToken}`
-        }
-      })
+    axios.get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=CH`, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`
+      }
+    })
       .then(response => {
         const topTrack = response.data.tracks[0];
         if (topTrack) {
           this.playlistUrl = topTrack.external_urls.spotify;
           this.playlistName = topTrack.name;
+          console.log('▶️ Spotify-Link:', this.playlistUrl);
           console.log('🎵 Top-Track:', this.playlistName);
         } else {
           console.warn('⚠️ Keine Tracks gefunden.');
         }
       })
       .catch(error => {
-        console.error('Fehler beim Abrufen der Spotify-Daten:', error);
+        console.error('Fehler beim Abrufen des Spotify-Tracks:', error);
       });
   }
 }
