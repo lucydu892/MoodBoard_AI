@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import axios from 'axios';
+import {response} from 'express';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,10 +11,24 @@ import axios from 'axios';
 export class DashboardComponent implements OnInit {
   title = 'Dashboard';
   @ViewChild('imageRef') imageRef!: ElementRef<HTMLImageElement>;
-  private quoteRef: any;
+  @ViewChild('colorPalette') colorPalette!: ElementRef<HTMLDivElement>;
+  private accessToken = 'BQCsg6zt6bOX_PDbfrJqsNfsK6xHjAtvqOp-lXEKvm0MwhcM8l4MaCJI-L7ptM2Y09cYyLefPyEplzkNyszWObHIBNwNzGJsfY9EySkrbGAgV38pQrw7kN31VtT53KPLHXOeWeU4xKM';
+  quote: string = '';
+  author: string = '';
+  playlistUrl: string = '';
+  playlistName: string = '';
 
-  ngOnInit(): void {
-    console.log('DashboardComponent component initialized');
+  async ngOnInit() {
+    const quote = await this.getQuote();
+    if (quote) {
+      this.quote = quote.quote;
+      this.author = quote.author;
+    }
+
+    axios.get('/spotify-token').then(response => {
+      this.accessToken = response.data.access_token;
+      console.log('Access Token:', this.accessToken);
+    });
   }
 
   getImage(): void {
@@ -47,18 +62,69 @@ export class DashboardComponent implements OnInit {
     }
     return  mood ;
   }
-  getQuote(): void {
-    alert("Feature not implemented yet");
-    // alert("Quote");
-    // axios
-    //   .get('https://api.quotable.io/random')
-    //   .then(response => {
-    //     const quote = response.data.content;
-    //     const author = response.data.author;
-    //     this.quoteRef.nativeElement.textContent = `"${quote}" - ${author}`;
-    //   })
-    //   .catch(error => {
-    //     console.error('Fehler beim Laden des Zitats:', error.message);
-    //   });
+  async getQuote() {
+    const apiUrl = 'https://api.api-ninjas.com/v1/quotes';
+    const apiKey = 'Scxegq9UREjLrgANoaUSlA==wjdIDRxH7JU4rNwT';
+
+    try {
+      const response = await axios.get(apiUrl, {
+        headers: {
+          'X-Api-Key': apiKey
+        }
+      });
+
+      const quote = response.data[0];
+      console.log('Zitat:', quote.quote);
+      console.log('Autor:', quote.author);
+
+      return quote;
+    } catch (error) {
+      console.error('Fehler beim Abrufen des Zitats:', error);
+      return null;
+    }
+  }
+  getColorPalette(): void {
+    alert("Color palette");
+    axios
+      .get('https://www.csscolorsapi.com/api/colors/cadetBlue')
+      .then(response => {
+        const hex = response.data.data.hex;
+
+        const colorPaletteElement = document.getElementById('colorPalette');
+        if (colorPaletteElement) {
+          colorPaletteElement.style.backgroundColor = `#${hex}`;
+        }
+      })
+      .catch(error => {
+        console.error('Fehler beim Laden der Farbpalette:', error.message);
+      });
+  }
+  getPlaylist(): void {
+    const artistId = '53XhwfbYqKCa1cC15pYq2q'; // z.B. Imagine Dragons
+
+    if (!this.accessToken) {
+      console.error('❌ Kein Access Token vorhanden!');
+      return;
+    }
+
+    axios
+      .get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=CH`, {
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`
+        }
+      })
+      .then(response => {
+        const topTrack = response.data.tracks[0];
+        if (topTrack) {
+          this.playlistUrl = topTrack.external_urls.spotify;
+          this.playlistName = topTrack.name;
+          console.log('🎵 Top-Track:', this.playlistName);
+        } else {
+          console.warn('⚠️ Keine Tracks gefunden.');
+        }
+      })
+      .catch(error => {
+        console.error('Fehler beim Abrufen der Spotify-Daten:', error);
+      });
   }
 }

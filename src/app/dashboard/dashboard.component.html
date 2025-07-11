@@ -27,9 +27,18 @@
     <img #imageRef id="image" alt="Random Mood Image">
     <h2>Quotes 💬</h2>
     <button (click)="getQuote()">Quote load</button>
-    <p #quoteRef id="quote">Click the button to load a random quote.</p>
+    <p> {{ quote }}</p>
+    <small>-{{ author }}</small>
     <h2>Colors 🎨</h2>
+    <button (click)="getColorPalette()">Color load</button>
+    <div #colorPalette id="colorPalette" class="color-palette">
+      <p>
+        Color palette will appear here.
+      </p>
+    </div>
     <h2>Music 🎵</h2>
+    <button (click)="getPlaylist()">🎧 Music load</button>
+    <a [href]="playlistUrl" target="_blank">{{ playlistName || 'Playlist öffnen' }}</a>
     <button onclick="alert('Feature coming soon!')">Create a Mood Board</button>
   </div>
 </main>
