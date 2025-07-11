@@ -25,19 +25,14 @@ export class DashboardComponent implements OnInit {
     this.fetchSpotifyToken();
   }
 
-  // ✅ 1. Beispiel: Unnötigen Import entfernt (`response` von express)
-
-  // ✅ 2. Beispiel: API-Key nicht hart im Code, sondern hier zentral (kannst du später in environment.ts verschieben)
   private unsplashClientId = 'EfSZG-Q6XKRhmL2ZaQoWvgSumgPkp-H8LfizA1QuM6A';
   private quotesApiKey = 'Scxegq9UREjLrgANoaUSlA==wjdIDRxH7JU4rNwT';
 
-  // ✅ 3. Beispiel: setMood ohne Rückgabewert (void) und ohne alert()
   setMood(mood: string): void {
     this.mood = mood;
     console.log('🧠 Stimmung gesetzt auf:', mood);
   }
 
-  // ✅ 4. Beispiel: getImage ohne alert(), mit sicherem Zugriff und nur einem Bild
   getImage(): void {
     const moodQuery = this.mood || 'neutral';
 
@@ -63,7 +58,6 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  // ✅ 5. Beispiel: Quotes mit API-Key, sicherer Zugriff
   async getQuote(): Promise<void> {
     const apiUrl = 'https://api.api-ninjas.com/v1/quotes';
 
@@ -85,7 +79,6 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // ✅ 6. Beispiel: Farbpalette holen, sauberer Zugriff
   getColorPalette(): void {
     axios.get('https://www.csscolorsapi.com/api/colors/cadetBlue')
       .then((response) => {
@@ -103,7 +96,6 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  // ✅ 7. Beispiel: Playlist holen mit sicherem Zugriff
   getPlaylist(): void {
     const artistId = '53XhwfbYqKCa1cC15pYq2q'; // Imagine Dragons
 
@@ -128,7 +120,6 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  // ✅ 8. Beispiel: Token abrufen in separate Methode ausgelagert
   private fetchSpotifyToken(): void {
     axios.get('http://localhost:3000/spotify-token')
       .then((response) => {
