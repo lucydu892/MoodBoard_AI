@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   author: string = '';
   playlistUrl: string = '';
   playlistName: string = '';
+  mood: string = '';
 
   async ngOnInit() {
     const quote = await this.getQuote();
@@ -45,22 +46,7 @@ export class DashboardComponent implements OnInit {
   }
   setMood(mood: string): String{
     alert("Mood");
-    switch (mood) {
-      case 'happy':
-        mood = 'happy';
-        break;
-      case 'sad':
-        mood = 'sad';
-        break;
-      case 'angry':
-        mood = 'angry';
-        break;
-      case 'neutral':
-        mood = 'neutral';
-        break;
-      default:
-        mood = 'unknown';
-    }
+    this.mood = mood;
     return  mood ;
   }
   async getQuote() {
