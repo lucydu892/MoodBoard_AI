@@ -59,7 +59,8 @@ export class DashboardComponent implements OnInit {
   }
 
   async getQuote(): Promise<void> {
-    const apiUrl = 'https://api.quotable.io';
+    const apiUrl = 'https://api.api-ninjas.com/v1/quotes';
+
 
     try {
       const response = await axios.get(apiUrl, {
@@ -70,29 +71,24 @@ export class DashboardComponent implements OnInit {
       if (quote) {
         this.quote = quote.quote;
         this.author = quote.author;
-        console.log('📜 Zitat:', this.quote, '-', this.author);
       } else {
         console.warn('⚠️ Kein Zitat gefunden');
       }
     } catch (error) {
-      console.error('Fehler beim Abrufen des Zitats:', error);
+      console.error('❌ Fehler beim Abrufen des Zitats:', error);
     }
   }
 
-  getColorPalette(): void {
-    axios.get('https://www.csscolorsapi.com/api/colors/cadetBlue')
-      .then((response) => {
-        const hex = response.data?.data?.hex;
 
-        if (hex && this.colorPalette?.nativeElement) {
-          this.colorPalette.nativeElement.style.backgroundColor = `#${hex}`;
-          console.log('🎨 Farbpalette geladen:', hex);
-        } else {
-          console.warn('⚠️ Farbcode fehlt');
-        }
+  getColorPalette(): void {
+    const inputMood = this.mood || 'neutral';
+    axios
+      .get(`http://localhost:3000/colors/${inputMood}`)
+      .then((response) => {
+        this.colorPalette = response.data;
       })
       .catch((error) => {
-        console.error('Fehler beim Laden der Farbpalette:', error.message);
+        console.error('Fehler beim Abrufen der Farbpalette:', error);
       });
   }
 

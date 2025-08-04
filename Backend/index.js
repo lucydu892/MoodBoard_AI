@@ -4,6 +4,7 @@ import cors from 'cors';
 import axios from 'axios';
 import dotenv from 'dotenv';
 
+import { moodColorsRouter } from './routes/moodColors.js';
 dotenv.config();
 
 const app = express();
@@ -11,6 +12,8 @@ const PORT = 3000;
 
 app.use(cors());
 
+//Routes
+app.use('/colors', moodColorsRouter);
 app.get('/spotify-token', async (req, res) => {
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
