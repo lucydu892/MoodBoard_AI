@@ -11,13 +11,13 @@
         }
       },
       "root": "",
-      "sourceRoot": "src",
+      "sourceRoot": "frontend/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "src/main.ts",
+            "browser": "frontend/src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -27,12 +27,12 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "frontend/src/styles.scss"
             ],
-            "server": "src/main.server.ts",
+            "server": "frontend/src/main.server.ts",
             "outputMode": "server",
             "ssr": {
-              "entry": "src/server.ts"
+              "entry": "frontend/src/server.ts"
             }
           },
           "configurations": {
@@ -86,7 +86,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "frontend/src/styles.scss"
             ]
           }
         }
