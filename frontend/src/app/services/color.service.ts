@@ -8,13 +8,13 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ColorService {
-
+  private colors: string[] = [];
   constructor(private http: HttpClient) {}
 
   async getColorsByMood(mood: string): Promise<string[]> {
     try {
       const response: any = await firstValueFrom(
-        this.http.get(`${environment.backendUrl}/colors/${mood || 'neutral'}`) // Backend-URL anpassen
+        this.http.get(`${environment.backendUrl}/colors/${mood}`)
       );
       return response?.colors || null;
     } catch (error) {

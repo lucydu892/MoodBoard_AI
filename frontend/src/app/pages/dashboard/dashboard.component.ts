@@ -30,9 +30,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ) {}
 
   async ngOnInit() {
-    this.colors = await this.colorService.getColorsByMood(this.mood);
+    await this.getColorPalette();
     this.getQuote();
     await this.getPlaylist();
+    await this.getColorPalette();
   }
 
   ngAfterViewInit() {
@@ -95,8 +96,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   async getColorPalette() {
     try {
       const colorData = await this.colorService.getColorsByMood(this.mood);
-      if (colorData) {
-        this.colors = colorData;
+      const colorPaletteElement = document.getElementById('colorPalette');
+      if (colorData && colorPaletteElement) {
+
+        colorPaletteElement.style.backgroundColor = `${colorData}`;
       }
     }catch (error) {
       console.error('Error loading colors:', error);

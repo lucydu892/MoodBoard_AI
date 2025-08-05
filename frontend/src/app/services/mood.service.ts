@@ -19,9 +19,9 @@ export class MoodService {
 
   async loadMoodData(mood: string) {
     const [colors, imageUrl, quoteData] = await Promise.all([
-      this.colorService.getColorsByMood(mood),      // string[]
-      this.imageService.getImageByMood(mood),      // string
-      this.quoteService.getQuote()                 // { quote: string, author: string } | null
+      this.colorService.getColorsByMood(mood),
+      this.imageService.getImageByMood(mood),
+      this.quoteService.getQuote()
     ]);
 
     const playlist = await this.spotifyService.getTopTrack('53XhwfbYqKCa1cC15pYq2q');
