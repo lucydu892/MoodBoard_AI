@@ -1,10 +1,16 @@
+import {HttpClient} from '@angular/common/http';
 import {ColorService} from './color.service';
 import {ImageService} from './image.service';
 import {QuoteService} from './quote.service';
 import {SpotifyService} from './spotify.service';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class MoodService {
   constructor(
+    private http: HttpClient,
     private colorService: ColorService,
     private imageService: ImageService,
     private quoteService: QuoteService,

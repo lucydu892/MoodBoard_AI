@@ -92,7 +92,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async getColerPalette() {
-
+  async getColorPalette() {
+    try {
+      const colorData = await this.colorService.getColorsByMood(this.mood);
+      if (colorData) {
+        this.colors = colorData;
+      }
+    }catch (error) {
+      console.error('Error loading colors:', error);
+    }
   }
 }
