@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,18 +9,25 @@ import { environment } from '../../environments/environment';
 export class MoodService {
   private backendUrl = environment.backendUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   sendMood(mood: string) {
-    const payload = { mood };
-    this.http.post(this.backendUrl, payload)
+    const payload = {mood};
+    return this.http.post(this.backendUrl, payload);
+  }
+
+  getResponse(response: any) {
+    this.sendMood(this.mood)
+
       .subscribe({
         next: (response) => {
           console.log('✅ Antwort vom Backend:', response);
+          return response;
         },
         error: (err) => {
           console.error('❌ Fehler beim Senden:', err);
         }
       });
-   }
+  }
 }
