@@ -13,7 +13,7 @@ export class MoodService {
 
   sendMood(mood: string) {
     const payload = { mood };
-    this.http.post('http://localhost:3000/mood', payload)
+    this.http.post(this.backendUrl, payload)
       .subscribe({
         next: (response) => {
           console.log('✅ Antwort vom Backend:', response);
@@ -22,17 +22,5 @@ export class MoodService {
           console.error('❌ Fehler beim Senden:', err);
         }
       });
-  }
-  // getResponse(mood: string) {
-  //   this.http.get(this.backendUrl + '/mood', { params: { mood } })
-  // }
-  getMoodDate(mood: string) {
-  //   if (this.sendMood(mood)) {
-  //     try {
-  //       this.http.get()
-  //     }
-  //   }
    }
-
-
 }

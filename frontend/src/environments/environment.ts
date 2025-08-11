@@ -2,7 +2,7 @@ export const environment = {
   production: false,
 
   // 🔹 Backend
-  backendUrl: 'http://localhost:3000',
+  backendUrl: 'http://localhost:3000/mood',
 
   // 🔹 Unsplash
   imageUrl: 'https://api.unsplash.com/search/photos',
