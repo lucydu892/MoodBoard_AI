@@ -17,17 +17,14 @@ export class MoodService {
     return this.http.post(this.backendUrl, payload);
   }
 
-  getResponse(response: any) {
-    this.sendMood(this.mood)
-
-      .subscribe({
-        next: (response) => {
-          console.log('✅ Antwort vom Backend:', response);
-          return response;
-        },
-        error: (err) => {
-          console.error('❌ Fehler beim Senden:', err);
-        }
-      });
-  }
+  // useResponse(response: any) {
+  //   const image = response.receivedImage;
+  //   const quote = response.receivedQuote;
+  //   const color = response.receivedColor;
+  //
+  //   image.nativeElement.src = image;
+  //   quote.nativeElement.innerText = quote;
+  //   document.body.style.backgroundColor = color;
+  //
+  // }
 }
