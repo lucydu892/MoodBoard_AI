@@ -1,39 +1,30 @@
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ColorService} from './color.service';
-import {ImageService} from './image.service';
-import {QuoteService} from './quote.service';
-import {SpotifyService} from './spotify.service';
-import { Injectable } from '@angular/core';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class MoodService {
-  constructor(
-    private http: HttpClient,
-    private colorService: ColorService,
-    private imageService: ImageService,
-    private quoteService: QuoteService,
-    private spotifyService: SpotifyService
-  ) {}
+  private backendUrl = environment.backendUrl;
 
-  async loadMoodData(mood: string) {
-    const [colors, imageUrl, quoteData] = await Promise.all([
-      this.colorService.getColorsByMood(mood),
-      this.imageService.getImageByMood(mood),
-      this.quoteService.getQuote()
-    ]);
-
-    const playlist = await this.spotifyService.getTopTrack('53XhwfbYqKCa1cC15pYq2q');
-
-    return {
-      mood,
-      colors: colors ?? [],
-      imageUrl: imageUrl ?? '',
-      quote: quoteData?.quote ?? '',
-      author: quoteData?.author ?? '',
-      playlistUrl: playlist?.url ?? '',
-      playlistName: playlist?.name ?? ''
-    };
+  constructor(private http: HttpClient) {
   }
+
+  sendMood(mood: string) {
+    const payload = {mood};
+    return this.http.post(this.backendUrl, payload);
+  }
+
+  // useResponse(response: any) {
+  //   const image = response.receivedImage;
+  //   const quote = response.receivedQuote;
+  //   const color = response.receivedColor;
+  //
+  //   image.nativeElement.src = image;
+  //   quote.nativeElement.innerText = quote;
+  //   document.body.style.backgroundColor = color;
+  //
+  // }
 }
