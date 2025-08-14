@@ -1,11 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MoodService} from '../../services/mood.service';
+import {CdkDrag} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CdkDrag],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -16,6 +17,10 @@ export class DashboardComponent {
   @ViewChild('imageOut') imageOut!: ElementRef<HTMLImageElement>;
   @ViewChild('quoteOut') quoteOut!: ElementRef<HTMLParagraphElement>;
   @ViewChild('colorPalette') colorPalette!: ElementRef<HTMLParagraphElement>;
+  @ViewChild('moodBoardCanvas') moodBoardCanvas!: ElementRef<HTMLDivElement>;
+  @ViewChild('moodBoardImage') moodBoardImage!: ElementRef<HTMLImageElement>;
+  @ViewChild('moodBoardQuote') moodBoardQuote!: ElementRef<HTMLParagraphElement>;
+  @ViewChild('moodBoardColorPalette') moodBoardColorPalette!: ElementRef<HTMLDivElement>;
   constructor(private moodService: MoodService) {
   }
 
@@ -56,5 +61,26 @@ export class DashboardComponent {
     this.quoteOut.nativeElement.innerText = `${quote}${author ? ' \n-' + author : ''}`;
 
     this.colorPalette.nativeElement.style.backgroundColor = receivedColor ?? '#ffffff';
+  }
+  addImage() {
+    try {
+      this.moodBoardImage.nativeElement.src = this.imageOut.nativeElement.src;
+    }catch (error) {
+      console.error('Error beim Hinzufügen des Bildes:', error);
+    }
+  }
+  addQuote() {
+    try {
+      this.moodBoardQuote.nativeElement.innerText = this.quoteOut.nativeElement.innerText;
+    }catch (error) {
+      console.error('Error beim Hinzufügen des Zitats:', error);
+    }
+  }
+  addColor() {
+    try {
+      this.moodBoardCanvas.nativeElement.style.backgroundColor = this.colorPalette.nativeElement.style.backgroundColor;
+    } catch (error) {
+      console.error('Error beim Hinzufügen der Farbe:', error);
+    }
   }
 }

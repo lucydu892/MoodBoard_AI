@@ -1,34 +1,108 @@
 main {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 2rem;
-  border: solid 2px black;
-  h1{
-    font-size:  30px;
+  border: solid 2px #222;
+  border-radius: 16px;
+  background: #fafafa;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+
+  h1 {
+    font-size: 30px;
+    margin-bottom: 0.5rem;
+    color: #333;
+    letter-spacing: 1px;
   }
-  h2{
+  h2 {
     font-size: 24px;
+    margin-bottom: 0.5rem;
+    color: #555;
   }
-  .moodPanel, .moodboardCanvas, .assetsPanel{
+
+  .PanelContainer {
     display: flex;
-    flex-direction: column;
-    width: 30%;
-    margin: 1rem 2rem 0 2rem;
-
+    flex-direction: row;
+    width: 100%;
+    margin: 1rem 0;
+    gap: 2rem;
   }
-  .moodboardCanvas{
-    border: solid 2px black;
-    margin: 1rem 0 1rem 0;
-  }
-  .assetsPanel {
 
-    img{
-      max-width: 50px;
-      max-height: 100px;
-      margin: 0.5rem 0;
+  .moodPanel, .assetsPanel {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 1.5rem;
+    flex: 1;
+    transition: box-shadow 0.2s;
+    &:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     }
   }
-  .colorPalette{
-    border:  solid 2px black;
+
+  ul {
+    padding: 0;
+    list-style: none;
+    li {
+      padding: 0.5rem 1rem;
+      margin: 0.25rem 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      &:hover {
+        background: #e0f7fa;
+      }
+    }
+  }
+
+  .assetsPanel img {
+    max-width: 50px;
+    max-height: 100px;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.2s;
+    &:hover {
+      transform: scale(1.08);
+    }
+  }
+
+  .colorPalette {
+    border: solid 2px #bdbdbd;
+    border-radius: 8px;
+    background: #f5f5f5;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .moodboardCanvas {
+    border: solid 2px #222;
+    border-radius: 12px;
+    background: #fff;
+    margin: 1rem 0;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+  }
+
+  button {
+    margin-top: 1rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    background: #1976d2;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.08);
+    transition: background 0.2s;
+    &:hover {
+      background: #1565c0;
+    }
   }
 }

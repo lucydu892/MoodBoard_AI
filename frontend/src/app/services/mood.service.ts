@@ -16,15 +16,4 @@ export class MoodService {
     const payload = {mood};
     return this.http.post(this.backendUrl, payload);
   }
-
-  // useResponse(response: any) {
-  //   const image = response.receivedImage;
-  //   const quote = response.receivedQuote;
-  //   const color = response.receivedColor;
-  //
-  //   image.nativeElement.src = image;
-  //   quote.nativeElement.innerText = quote;
-  //   document.body.style.backgroundColor = color;
-  //
-  // }
 }
