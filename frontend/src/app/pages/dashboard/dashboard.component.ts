@@ -13,6 +13,9 @@ import {CdkDrag} from '@angular/cdk/drag-drop';
 export class DashboardComponent {
   // moodData: MoodData | null = null;
   mood: string = 'neutral';
+  showMoodBoardImage = false;
+  showMoodBoardQuote = false;
+  showMoodBoardColorPalette = false;
 
   @ViewChild('imageOut') imageOut!: ElementRef<HTMLImageElement>;
   @ViewChild('quoteOut') quoteOut!: ElementRef<HTMLParagraphElement>;
@@ -20,7 +23,7 @@ export class DashboardComponent {
   @ViewChild('moodBoardCanvas') moodBoardCanvas!: ElementRef<HTMLDivElement>;
   @ViewChild('moodBoardImage') moodBoardImage!: ElementRef<HTMLImageElement>;
   @ViewChild('moodBoardQuote') moodBoardQuote!: ElementRef<HTMLParagraphElement>;
-  @ViewChild('moodBoardColorPalette') moodBoardColorPalette!: ElementRef<HTMLDivElement>;
+  @ViewChild('moodBoardColorPalette') moodBoardColorPalette!: ElementRef<HTMLParagraphElement>;
   constructor(private moodService: MoodService) {
   }
 
@@ -65,6 +68,7 @@ export class DashboardComponent {
   addImage() {
     try {
       this.moodBoardImage.nativeElement.src = this.imageOut.nativeElement.src;
+      this.showMoodBoardImage = true;
     }catch (error) {
       console.error('Error beim Hinzufügen des Bildes:', error);
     }
@@ -72,13 +76,16 @@ export class DashboardComponent {
   addQuote() {
     try {
       this.moodBoardQuote.nativeElement.innerText = this.quoteOut.nativeElement.innerText;
+      this.showMoodBoardQuote = true;
     }catch (error) {
       console.error('Error beim Hinzufügen des Zitats:', error);
     }
   }
   addColor() {
     try {
-      this.moodBoardCanvas.nativeElement.style.backgroundColor = this.colorPalette.nativeElement.style.backgroundColor;
+      this.moodBoardColorPalette.nativeElement.style.backgroundColor = this.colorPalette.nativeElement.style.backgroundColor;
+      this.showMoodBoardColorPalette = true;
+
     } catch (error) {
       console.error('Error beim Hinzufügen der Farbe:', error);
     }

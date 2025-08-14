@@ -1,7 +1,7 @@
 <main>
-  <div class="PanelContainer">
-    <div class="moodPanel">
-      <h1>💬 Mood Panel</h1>
+  <section class="PanelContainer" aria-label="Panels">
+    <section class="moodPanel" aria-labelledby="mood-panel-title">
+      <h1 id="mood-panel-title">💬 Mood Panel</h1>
       <h2>Select Mood 👇</h2>
       <ul>
         <li (click)="setMood('happy')">Happy 😊</li>
@@ -12,37 +12,34 @@
         <li (click)="setMood('angry')">Angry 😠</li>
         <li (click)="setMood('surprised')">Surprised 😲</li>
       </ul>
-      <h2>Current Mood: {{ mood }}</h2>
+      <h2>Current Mood: <span aria-live="polite">{{ mood }}</span></h2>
       <h2>AI Generate 🎲</h2>
       <p>Your personal AI assistant for creating mood boards.</p>
-    </div>
-    <div class="assetsPanel">
-      <h1>📦 Assets Panel</h1>
+    </section>
+    <section class="assetsPanel" aria-labelledby="assets-panel-title">
+      <h1 id="assets-panel-title">📦 Assets Panel</h1>
       <h2>Images 🖼️</h2>
       <img (click)="addImage()" #imageOut id="image" alt="Random Mood Image">
       <h2>Quotes 💬</h2>
-      <p (click)="addQuote()" #quoteOut></p>
-      <!--    <small>-{{ author }}</small>-->
+      <p (click)="addQuote()" id="quoteOut" #quoteOut></p>
       <h2>Colors 🎨</h2>
       <div (click)="addColor()" #colorPalette class="colorPalette">
-        <p>
-          Color palette will appear here.
-        </p>
+        <p>Color palette will appear here.</p>
       </div>
       <h2>Music 🎵</h2>
-      <div cdkDrag>
+      <div cdkDrag aria-label="Draggable music asset">
         Drag me around
       </div>
-      <button onclick="alert('Feature coming soon!')">Create a Mood Board</button>
-    </div>
-  </div>
-  <div class="moodboardCanvas">
-    <h1>🎨 Moodboard Canvas</h1>
+      <button type="button" onclick="alert('Feature coming soon!')" aria-label="Create a Mood Board">Create a Mood Board</button>
+    </section>
+  </section>
+  <section class="moodboardCanvas" aria-labelledby="moodboard-canvas-title">
+    <h1 id="moodboard-canvas-title">🎨 Moodboard Canvas</h1>
     <p>Drag and drop your assets here to create your mood board.</p>
     <div #moodBoardCanvas>
-      <img #moodBoardImage cdkDrag>
-      <p #moodBoardQuote cdkDrag></p>
-      <p class="colorPalette" #moodBoardColorPalette></p>
+      <img [hidden]="!showMoodBoardImage" #moodBoardImage cdkDrag alt="Moodboard Image">
+      <p [hidden]="!showMoodBoardQuote" #moodBoardQuote cdkDrag></p>
+      <p [hidden]="!showMoodBoardColorPalette" class="colorPalette" #moodBoardColorPalette cdkDrag></p>
     </div>
-  </div>
+  </section>
 </main>

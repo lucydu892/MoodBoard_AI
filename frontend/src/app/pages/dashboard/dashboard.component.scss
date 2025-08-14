@@ -55,17 +55,26 @@ main {
   }
 
   .assetsPanel img {
-    max-width: 50px;
-    max-height: 100px;
+    max-width: 40px;
+    max-height: 80px;
     margin: 0.5rem 0;
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     cursor: pointer;
     transition: transform 0.2s;
+    border: 1px solid #bdbdbd; // subtle border for separation
     &:hover {
       transform: scale(1.08);
     }
   }
+  .assetsPanel p #quoteOu {
+  border: 1px solid #bdbdbd;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  background: #f9f9f9;
+  margin: 0.5rem 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
 
   .colorPalette {
     border: solid 2px #bdbdbd;
@@ -73,6 +82,17 @@ main {
     background: #f5f5f5;
     padding: 0.5rem;
     margin-top: 0.5rem;
+  }
+  .assetsPanel .colorPalette {
+    display: inline-block;
+    min-width: 40px;
+    min-height: 40px;
+    border: 2px solid #1976d2;
+    border-radius: 8px;
+    background: #e3f2fd;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 1px 4px rgba(25,118,210,0.08);
   }
 
   .moodboardCanvas {
@@ -83,11 +103,32 @@ main {
     padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     img {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 40px;
+      max-height: 80px;
       border-radius: 8px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      border: 1px solid #bdbdbd;
+      margin: 0.5rem 0;
     }
+    p #quoteOut {
+      border: 1px solid #bdbdbd;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      background: #f9f9f9;
+      margin: 0.5rem 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+  }
+  .moodboardCanvas .colorPalette {
+    display: inline-block;
+    min-width: 40px;
+    min-height: 40px;
+    border: 2px solid #1976d2;
+    border-radius: 8px;
+    background: #e3f2fd;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 1px 4px rgba(25,118,210,0.08);
   }
 
   button {
